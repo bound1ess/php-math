@@ -2,7 +2,9 @@
 
 namespace Math;
 
-final class Integer extends Real {
+use Math\Contracts\IntegerContract;
+
+final class Integer extends Real implements IntegerContract {
 
     private static $ZERO = 0;
 
@@ -13,7 +15,11 @@ final class Integer extends Real {
     }
 
     public function getValue(): int {
-        return $this->value; // @todo make a part of the contract
+        return $this->value;
+    }
+
+    public function getAbsoluteValue(): int {
+        return abs($this->value);
     }
 
     public function isPositive(): bool {
