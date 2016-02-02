@@ -77,6 +77,11 @@ final class Rational extends Real implements RationalContract {
         return new Rational(new Integer($newNum), new Integer($newDenom));
     }
 
+    public function subtract(Rational $value): Rational {
+        $coef = new Rational(new Integer(-static::$ONE), new Integer(static::$ONE));
+        return $this->add($value->multiply($coef));
+    }
+
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;

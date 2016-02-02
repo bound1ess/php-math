@@ -17,5 +17,5 @@ interface RationalContract {
     public function multiply(Rational $value): Rational;
     public function divide(Rational $value): Rational;
     public function add(Rational $value): Rational;
-    //public function subtract(Rational $value): Rational;
+    public function subtract(Rational $value): Rational;
 }
