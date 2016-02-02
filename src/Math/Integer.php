@@ -12,6 +12,10 @@ final class Integer extends Real {
         $this->value = $value;
     }
 
+    public function getValue(): int {
+        return $this->value; // @todo make a part of the contract
+    }
+
     public function isPositive(): bool {
         return static::$ZERO < $this->value;
     }

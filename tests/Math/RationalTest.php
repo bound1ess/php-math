@@ -14,6 +14,19 @@ class RationalTest extends Dev\TestCase {
         $this->assertTrue((new ReflectionClass('Math\\Rational'))->isFinal());
     }
 
+    public function testConstructorMethod() {
+        $rational = $this->make(15, -16);
+        $this->assertInstanceOf('Math\\Integer', $rational->getNumerator());
+        $this->assertEquals($rational->getNumerator()->getValue(), 15);
+        $this->assertInstanceOf('Math\\Integer', $rational->getDenominator());
+        $this->assertEquals($rational->getDenominator()->getValue(), -16);
+    }
+
+    public function testConstructorZeroDenominatorException() {
+        $this->setExpectedException('Math\\Exceptions\\ZeroDenominatorException');
+        $this->make(1, 0);
+    }
+
     public function testIsPositiveMethod() {
         $this->assertTrue($this->make(3, 7)->isPositive());
         $this->assertTrue($this->make(-5, -10)->isPositive());

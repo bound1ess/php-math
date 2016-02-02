@@ -2,6 +2,8 @@
 
 namespace Math;
 
+use Math\Exceptions\ZeroDenominatorException;
+
 final class Rational extends Real {
 
     private $num, $denom;
@@ -9,6 +11,10 @@ final class Rational extends Real {
     public function __construct(Integer $num, Integer $denom) {
         $this->num = $num;
         $this->denom = $denom;
+
+        if ($this->denom->isZero()) {
+            throw new ZeroDenominatorException();
+        }
     }
 
     public function getNumerator(): Integer {
