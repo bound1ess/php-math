@@ -81,6 +81,21 @@ class RationalTest extends Dev\TestCase {
         $this->make(0, 1)->getInverse();
     }
 
+    public function testMultiplyMethod() {
+        $rational = $this->make(5, 6)->multiply($this->make(3, 2));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), 15);
+        $this->assertEquals($rational->getDenominator()->getValue(), 12);
+
+        $rational = $this->make(3, 1)->multiply($this->make(4, 5));
+        $this->assertEquals($rational->getNumerator()->getValue(), 12);
+        $this->assertEquals($rational->getDenominator()->getValue(), 5);
+
+        $rational = $this->make(0, 2)->multiply($this->make(2, 3));
+        $this->assertEquals($rational->getNumerator()->getValue(), 0);
+        $this->assertEquals($rational->getDenominator()->getValue(), 6);
+    }
+
     public function testIsPositiveMethod() {
         $this->assertTrue($this->make(3, 7)->isPositive());
         $this->assertTrue($this->make(-5, -10)->isPositive());

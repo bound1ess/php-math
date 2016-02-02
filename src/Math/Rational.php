@@ -60,6 +60,12 @@ final class Rational extends Real implements RationalContract {
         return new Rational($newNum, $newDenom);
     }
 
+    public function multiply(Rational $value): Rational {
+        $newNum = $this->num->getValue() * $value->getNumerator()->getValue();
+        $newDenom = $this->denom->getValue() * $value->getDenominator()->getValue();
+        return new Rational(new Integer($newNum), new Integer($newDenom));
+    }
+
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;
