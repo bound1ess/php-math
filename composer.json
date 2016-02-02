@@ -1,0 +1,11 @@
+{
+    "name": "bound1ess/php-math",
+    "description": "A bunch of useful things",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.1.*"
+    }
+}
