@@ -2,7 +2,7 @@
 
 namespace Math\Contracts;
 
-use Math\Integer;
+use Math\{Integer, Rational};
 
 interface RationalContract {
 
@@ -11,4 +11,6 @@ interface RationalContract {
 
     public function getDenominator(): Integer;
     public function setDenominator(Integer $newDenom);
+
+    public function getInverse(): Rational;
 }

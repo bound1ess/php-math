@@ -2,7 +2,7 @@
 
 namespace Math;
 
-use Math\Exceptions\ZeroDenominatorException;
+use Math\Exceptions\{NoInverseException, ZeroDenominatorException};
 use Math\Contracts\RationalContract;
 
 final class Rational extends Real implements RationalContract {
@@ -49,6 +49,15 @@ final class Rational extends Real implements RationalContract {
             throw new ZeroDenominatorException();
         }
         $this->denom = $newDenom;
+    }
+
+    public function getInverse(): Rational {
+        if ($this->num->getValue() == static::$ZERO) {
+            throw new NoInverseException();
+        }
+        $newNum = new Integer($this->denom->getValue());
+        $newDenom = new Integer($this->num->getValue());
+        return new Rational($newNum, $newDenom);
     }
 
     public function isPositive(): bool {
