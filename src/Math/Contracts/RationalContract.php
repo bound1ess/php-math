@@ -34,4 +34,7 @@ interface RationalContract {
     //public function isEqualToInteger(Integer $value): bool;
     //public function isLessThanInteger(Integer $value): bool;
     //public function isGreaterThanInteger(Integer $value): bool;
+
+    //public function simplify();
+    //public function getSimplified(): Rational;
 }
