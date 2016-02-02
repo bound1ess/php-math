@@ -16,38 +16,42 @@ class RationalTest extends Dev\TestCase {
 
     public function testConstructorMethod() {
         $rational = $this->make(15, -16);
-        $this->assertInteger($rational->getNumerator());
         $this->assertEquals($rational->getNumerator()->getValue(), 15);
-        $this->assertInteger($rational->getDenominator());
         $this->assertEquals($rational->getDenominator()->getValue(), -16);
     }
 
     public function testHelperConstructorMethods() {
         $first = Rational::makeInteger($this->makeInteger(15));
         $this->assertRational($first);
-        $this->assertInteger($first->getNumerator());
         $this->assertEquals($first->getNumerator()->getValue(), 15);
-        $this->assertInteger($first->getDenominator());
         $this->assertEquals($first->getDenominator()->getValue(), 1);
 
         $second = Rational::makeZero($this->makeInteger(5));
         $this->assertRational($second);
-        $this->assertInteger($second->getNumerator());
         $this->assertEquals($second->getNumerator()->getValue(), 0);
-        $this->assertInteger($second->getDenominator());
         $this->assertEquals($second->getDenominator()->getValue(), 5);
 
         $third = Rational::makeZero();
         $this->assertRational($third);
-        $this->assertInteger($third->getNumerator());
         $this->assertEquals($third->getNumerator()->getValue(), 0);
-        $this->assertInteger($third->getDenominator());
         $this->assertNotEquals($third->getDenominator()->getValue(), 0);
     }
 
     public function testConstructorZeroDenominatorException() {
         $this->setExpectedException('Math\\Exceptions\\ZeroDenominatorException');
         $this->make(1, 0);
+    }
+
+    public function testGetNumeratorMethod() {
+        $rational = $this->make(1, 1);
+        $this->assertInteger($rational->getNumerator());
+        $this->assertEquals($rational->getNumerator()->getValue(), 1);
+    }
+
+    public function testGetDenominatorMethod() {
+        $rational = $this->make(1, 1);
+        $this->assertInteger($rational->getDenominator());
+        $this->assertEquals($rational->getDenominator()->getValue(), 1);
     }
 
     public function testIsPositiveMethod() {
