@@ -26,8 +26,12 @@ final class Integer extends Real implements IntegerContract {
         $first = $this->getAbsoluteValue();
         $second = $value->getAbsoluteValue();
 
-        if (0 == $first || 0 == $second) {
+        if (0 == $first && 0 == $second) {
             return 0;
+        } else if (0 == $first) {
+            return $second;
+        } else if (0 == $second) {
+            return $first;
         }
 
         while (true) {

@@ -21,8 +21,9 @@ class IntegerTest extends Dev\TestCase {
     }
 
     public function testGetGreatestCommonDivisorMethod() {
-        $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(1)), 0);
-        $this->assertEquals($this->make(1)->getGreatestCommonDivisor($this->make(0)), 0);
+        $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(5)), 5);
+        $this->assertEquals($this->make(7)->getGreatestCommonDivisor($this->make(0)), 7);
+        $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(0)), 0);
         $this->assertEquals($this->make(37)->getGreatestCommonDivisor($this->make(1)), 1);
         $this->assertEquals($this->make(4)->getGreatestCommonDivisor($this->make(32)), 4);
         $this->assertEquals($this->make(15)->getGreatestCommonDivisor($this->make(55)), 5);
