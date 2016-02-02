@@ -11,15 +11,35 @@ final class Rational extends Real {
         $this->denom = $denom;
     }
 
+    public function getNumerator(): Integer {
+        return $this->num;
+    }
+
+    public function getDenominator(): Integer {
+        return $this->denom;
+    }
+
     public function isPositive(): bool {
-        return false;
+        if ($this->num->isPositive() && $this->denom->isPositive()) {
+            return true;
+        } else if ($this->num->isNegative() && $this->denom->isNegative()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function isNegative(): bool {
-        return true;
+        if ($this->num->isNegative() && $this->denom->isPositive()) {
+            return true;
+        } else if ($this->num->isPositive() && $this->denom->isNegative()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function isZero(): bool {
-        return true;
+        return $this->num->isZero();
     }
 }
