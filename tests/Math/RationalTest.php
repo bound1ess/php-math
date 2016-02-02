@@ -96,6 +96,16 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 6);
     }
 
+    public function testDivideMethod() {
+        $rational = $this->make(2, 3)->divide($this->make(5, 4));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), 8);
+        $this->assertEquals($rational->getDenominator()->getValue(), 15);
+
+        $this->setExpectedException('Math\\Exceptions\\NoInverseException');
+        $this->make(2, 3)->divide($this->make(0, 1));
+    }
+
     public function testIsPositiveMethod() {
         $this->assertTrue($this->make(3, 7)->isPositive());
         $this->assertTrue($this->make(-5, -10)->isPositive());

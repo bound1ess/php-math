@@ -66,6 +66,10 @@ final class Rational extends Real implements RationalContract {
         return new Rational(new Integer($newNum), new Integer($newDenom));
     }
 
+    public function divide(Rational $value): Rational {
+        return $this->multiply($value->getInverse());
+    }
+
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;
