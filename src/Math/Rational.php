@@ -70,6 +70,13 @@ final class Rational extends Real implements RationalContract {
         return $this->multiply($value->getInverse());
     }
 
+    public function add(Rational $value): Rational {
+        $newNum = $this->num->getValue() * $value->denom->getValue();
+        $newNum += $value->num->getValue() * $this->denom->getValue();
+        $newDenom = $value->denom->getValue() * $this->denom->getValue();
+        return new Rational(new Integer($newNum), new Integer($newDenom));
+    }
+
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;
