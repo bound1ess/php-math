@@ -22,6 +22,25 @@ final class Integer extends Real implements IntegerContract {
         return abs($this->value);
     }
 
+    public function getGreatestCommonDivisor(Integer $value): int {
+        $first = $this->getAbsoluteValue();
+        $second = $value->getAbsoluteValue();
+
+        if (0 == $first || 0 == $second) {
+            return 0;
+        }
+
+        while (true) {
+            $remainder = $first % $second;
+            if (0 == $remainder) {
+                break;
+            }
+            $first = $second;
+            $second = $remainder;
+        }
+        return $second;
+    }
+
     public function isPositive(): bool {
         return static::$ZERO < $this->value;
     }
