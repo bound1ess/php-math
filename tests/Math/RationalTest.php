@@ -48,10 +48,27 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getNumerator()->getValue(), 1);
     }
 
+    public function testSetNumeratorMethod() {
+        $rational = $this->make(1, 1);
+        $rational->setNumerator($this->makeInteger(5));
+        $this->assertInteger($rational->getNumerator());
+        $this->assertEquals($rational->getNumerator()->getValue(), 5);
+    }
+
     public function testGetDenominatorMethod() {
         $rational = $this->make(1, 1);
         $this->assertInteger($rational->getDenominator());
         $this->assertEquals($rational->getDenominator()->getValue(), 1);
+    }
+
+    public function testSetDenominatorMethod() {
+        $rational = $this->make(1, 1);
+        $rational->setDenominator($this->makeInteger(3));
+        $this->assertInteger($rational->getDenominator());
+        $this->assertEquals($rational->getDenominator()->getValue(), 3);
+
+        $this->setExpectedException('Math\\Exceptions\\ZeroDenominatorException');
+        $rational->setDenominator($this->makeInteger(0));
     }
 
     public function testIsPositiveMethod() {

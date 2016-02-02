@@ -3,8 +3,9 @@
 namespace Math;
 
 use Math\Exceptions\ZeroDenominatorException;
+use Math\Contracts\RationalContract;
 
-final class Rational extends Real {
+final class Rational extends Real implements RationalContract {
 
     private static $ZERO = 0;
     private static $ONE = 1;
@@ -35,8 +36,19 @@ final class Rational extends Real {
         return $this->num;
     }
 
+    public function setNumerator(Integer $newNum) {
+        $this->num = $newNum;
+    }
+
     public function getDenominator(): Integer {
         return $this->denom;
+    }
+
+    public function setDenominator(Integer $newDenom) {
+        if ($newDenom->getValue() == static::$ZERO) {
+            throw new ZeroDenominatorException();
+        }
+        $this->denom = $newDenom;
     }
 
     public function isPositive(): bool {
