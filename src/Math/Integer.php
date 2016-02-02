@@ -6,6 +6,8 @@ final class Integer extends Real {
 
     private static $ZERO = 0;
 
+    private $value;
+
     public function __construct(int $value) {
         $this->value = $value;
     }
