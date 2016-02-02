@@ -11,4 +11,5 @@ interface IntegerContract {
     public function getAbsoluteValue(): int;
 
     public function getGreatestCommonDivisor(Integer $value): int;
+    public function getLeastCommonMultiple(Integer $value): int;
 }

@@ -30,6 +30,15 @@ class IntegerTest extends Dev\TestCase {
         $this->assertEquals($this->make(17)->getGreatestCommonDivisor($this->make(7)), 1);
     }
 
+    public function testGetLeastCommonMultiple() {
+        $this->assertEquals($this->make(5)->getLeastCommonMultiple($this->make(20)), 20);
+        $this->assertEquals($this->make(3)->getLeastCommonMultiple($this->make(7)), 21);
+        $this->assertEquals($this->make(12)->getLeastCommonMultiple($this->make(16)), 48);
+
+        $this->setExpectedException('Math\\Exceptions\\LcmNotDefinedException');
+        $this->make(0)->getLeastCommonMultiple($this->make(0));
+    }
+
     private function make(int $value): Integer {
         return new Integer($value);
     }

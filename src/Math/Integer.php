@@ -3,6 +3,7 @@
 namespace Math;
 
 use Math\Contracts\IntegerContract;
+use Math\Exceptions\LcmNotDefinedException;
 
 final class Integer extends Real implements IntegerContract {
 
@@ -43,6 +44,18 @@ final class Integer extends Real implements IntegerContract {
             $second = $remainder;
         }
         return $second;
+    }
+
+    public function getLeastCommonMultiple(Integer $value): int {
+        $first = $this->value;
+        $second = $value->getValue();
+        $gcd = $this->getGreatestCommonDivisor($value);
+
+        if (0 == $gcd) {
+            throw new LcmNotDefinedException();
+        }
+
+        return abs($first * $second) / $gcd;
     }
 
     public function isPositive(): bool {
