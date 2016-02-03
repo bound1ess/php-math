@@ -24,8 +24,8 @@ interface RationalContract {
     public function addInteger(Integer $value): Rational;
     public function subtractInteger(Integer $value): Rational;
 
-    //public function increment(): Rational;
-    //public function decrement(): Rational;
+    public function increment();
+    public function decrement();
 
     //public function isEqualTo(Rational $value): bool;
     //public function isLessThan(Rational $value): bool;

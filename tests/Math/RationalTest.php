@@ -156,6 +156,20 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 5);
     }
 
+    public function testIncrementMethod() {
+        $rational = $this->make(1, 2);
+        $rational->increment();
+        $this->assertEquals($rational->getNumerator()->getValue(), 3);
+        $this->assertEquals($rational->getDenominator()->getValue(), 2);
+    }
+
+    public function testDecrementMethod() {
+        $rational = $this->make(2, 5);
+        $rational->decrement();
+        $this->assertEquals($rational->getNumerator()->getValue(), -3);
+        $this->assertEquals($rational->getDenominator()->getValue(), 5);
+    }
+
     public function testGetSimplifiedMethod() {
         $rational = $this->make(10, 20)->getSimplified();
         $this->assertRational($rational);

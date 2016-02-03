@@ -98,6 +98,18 @@ final class Rational extends Real implements RationalContract {
         return $this->subtract(Rational::makeInteger($value));
     }
 
+    public function increment() {
+        $newRational = $this->addInteger(new Integer(static::$ONE));
+        $this->num = $newRational->getNumerator();
+        $this->denom = $newRational->getDenominator();
+    }
+
+    public function decrement() {
+        $newRational = $this->subtractInteger(new Integer(static::$ONE));
+        $this->num = $newRational->getNumerator();
+        $this->denom = $newRational->getDenominator();
+    }
+
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;
@@ -107,8 +119,8 @@ final class Rational extends Real implements RationalContract {
 
     public function simplify() {
         $newRational = $this->getSimplified();
-        $this->num = $newRational->num;
-        $this->denom = $newRational->denom;
+        $this->num = $newRational->getNumerator();
+        $this->denom = $newRational->getDenominator();
     }
 
     public function isPositive(): bool {
