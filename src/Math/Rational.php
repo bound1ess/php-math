@@ -82,6 +82,22 @@ final class Rational extends Real implements RationalContract {
         return $this->add($value->multiply($coef));
     }
 
+    public function multiplyByInteger(Integer $value): Rational {
+        return $this->multiply(Rational::makeInteger($value));
+    }
+
+    public function divideByInteger(Integer $value): Rational {
+        return $this->divide(Rational::makeInteger($value));
+    }
+
+    public function addInteger(Integer $value): Rational {
+        return $this->add(Rational::makeInteger($value));
+    }
+
+    public function subtractInteger(Integer $value): Rational {
+        return $this->subtract(Rational::makeInteger($value));
+    }
+
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;

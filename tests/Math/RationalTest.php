@@ -128,8 +128,37 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 30);
     }
 
+    public function testMultiplyByIntegerMethod() {
+        $rational = $this->make(3, 5)->multiplyByInteger($this->makeInteger(4));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), 12);
+        $this->assertEquals($rational->getDenominator()->getValue(), 5);
+    }
+
+    public function testDivideByIntegerMethod() {
+        $rational = $this->make(5, 6)->divideByInteger($this->makeInteger(3));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), 5);
+        $this->assertEquals($rational->getDenominator()->getValue(), 18);
+    }
+
+    public function testAddIntegerMethod() {
+        $rational = $this->make(3, 7)->addInteger($this->makeInteger(2));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), 17);
+        $this->assertEquals($rational->getDenominator()->getValue(), 7);
+    }
+
+    public function testSubtractIntegerMethod() {
+        $rational = $this->make(3, 5)->subtractInteger($this->makeInteger(2));
+        $this->assertRational($rational);
+        $this->assertEquals($rational->getNumerator()->getValue(), -7);
+        $this->assertEquals($rational->getDenominator()->getValue(), 5);
+    }
+
     public function testGetSimplifiedMethod() {
         $rational = $this->make(10, 20)->getSimplified();
+        $this->assertRational($rational);
         $this->assertEquals($rational->getNumerator()->getValue(), 1);
         $this->assertEquals($rational->getDenominator()->getValue(), 2);
     }

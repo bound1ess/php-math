@@ -19,10 +19,10 @@ interface RationalContract {
     public function add(Rational $value): Rational;
     public function subtract(Rational $value): Rational;
 
-    //public function multiplyByInteger(Integer $value): Rational;
-    //public function divideByInteger(Integer $value): Rational;
-    //public function addInteger(Integer $value): Rational;
-    //public function subtractInteger(Integer $value): Rational;
+    public function multiplyByInteger(Integer $value): Rational;
+    public function divideByInteger(Integer $value): Rational;
+    public function addInteger(Integer $value): Rational;
+    public function subtractInteger(Integer $value): Rational;
 
     //public function increment(): Rational;
     //public function decrement(): Rational;
