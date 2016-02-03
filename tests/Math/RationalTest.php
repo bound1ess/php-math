@@ -179,6 +179,24 @@ class RationalTest extends Dev\TestCase {
         $this->assertFalse($this->make(10, 1)->isEqualTo($this->make(110, 10)));
     }
 
+    public function testIsLessThanMethod() {
+        $this->assertTrue($this->make(3, 2)->isLessThan($this->make(4, 2)));
+        $this->assertTrue($this->make(7, 13)->isLessThan($this->make(8, 10)));
+        $this->assertTrue($this->make(3, 100)->isLessThan($this->make(13, 400)));
+        $this->assertFalse($this->make(3, 100)->isLessThan($this->make(12, 400)));
+        $this->assertFalse($this->make(1, 2)->isLessThan($this->make(1, 3)));
+        $this->assertFalse($this->make(5, 7)->isLessThan($this->make(4, 7)));
+    }
+
+    public function testIsGreaterThanMethod() {
+        $this->assertTrue($this->make(1, 2)->isGreaterThan($this->make(1, 3)));
+        $this->assertTrue($this->make(3, 15)->isGreaterThan($this->make(1, 6)));
+        $this->assertTrue($this->make(7, 10)->isGreaterThan($this->make(69, 100)));
+        $this->assertFalse($this->make(1, 8)->isGreaterThan($this->make(1, 7)));
+        $this->assertFalse($this->make(15, 20)->isGreaterThan($this->make(16, 20)));
+        $this->assertFalse($this->make(8, 19)->isGreaterThan($this->make(9, 19)));
+    }
+
     public function testGetSimplifiedMethod() {
         $rational = $this->make(10, 20)->getSimplified();
         $this->assertRational($rational);

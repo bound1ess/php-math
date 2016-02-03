@@ -122,6 +122,24 @@ final class Rational extends Real implements RationalContract {
         return true;
     }
 
+    public function isLessThan(Rational $value): bool {
+        $first = $this->getSimplified();
+        $second = $value->getSimplified();
+        $lcm = $first->getDenominator()->getLeastCommonMultiple($second->getDenominator());
+        $left = $first->getNumerator()->getValue();
+        $left *= $lcm / $first->getDenominator()->getValue();
+        $right = $second->getNumerator()->getValue();
+        $right *= $lcm / $second->getDenominator()->getValue();
+        return $left < $right;
+    }
+
+    public function isGreaterThan(Rational $value): bool {
+        if ($this->isEqualTo($value) || $this->isLessThan($value)) {
+            return false;
+        }
+        return true;
+    }
+
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;
