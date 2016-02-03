@@ -197,6 +197,33 @@ class RationalTest extends Dev\TestCase {
         $this->assertFalse($this->make(8, 19)->isGreaterThan($this->make(9, 19)));
     }
 
+    public function testIsEqualToIntegerMethod() {
+        $this->assertTrue($this->make(3, 1)->isEqualToInteger($this->makeInteger(3)));
+        $this->assertTrue($this->make(8, 2)->isEqualToInteger($this->makeInteger(4)));
+        $this->assertTrue($this->make(49, 7)->isEqualToInteger($this->makeInteger(7)));
+        $this->assertFalse($this->make(56, 7)->isEqualToInteger($this->makeInteger(6)));
+        $this->assertFalse($this->make(9, 1)->isEqualToInteger($this->makeInteger(8)));
+        $this->assertFalse($this->make(21, 4)->isEqualToInteger($this->makeInteger(5)));
+    }
+
+    public function testIsLessThanIntegerMethod() {
+        $this->assertTrue($this->make(2, 1)->isLessThanInteger($this->makeInteger(3)));
+        $this->assertTrue($this->make(13, 14)->isLessThanInteger($this->makeInteger(1)));
+        $this->assertTrue($this->make(19, 5)->isLessThanInteger($this->makeInteger(4)));
+        $this->assertFalse($this->make(4, 2)->isLessThanInteger($this->makeInteger(2)));
+        $this->assertFalse($this->make(7, 6)->isLessThanInteger($this->makeInteger(1)));
+        $this->assertFalse($this->make(13, 3)->isLessThanInteger($this->makeInteger(4)));
+    }
+
+    public function testIsGreaterThanIntegerMethod() {
+        $this->assertTrue($this->make(3, 2)->isGreaterThanInteger($this->makeInteger(1)));
+        $this->assertTrue($this->make(47, 23)->isGreaterThanInteger($this->makeInteger(2)));
+        $this->assertTrue($this->make(27, 8)->isGreaterThanInteger($this->makeInteger(3)));
+        $this->assertFalse($this->make(24, 6)->isGreaterThanInteger($this->makeInteger(4)));
+        $this->assertFalse($this->make(45, 10)->isGreaterThanInteger($this->makeInteger(5)));
+        $this->assertFalse($this->make(60, 11)->isGreaterThanInteger($this->makeInteger(6)));
+    }
+
     public function testGetSimplifiedMethod() {
         $rational = $this->make(10, 20)->getSimplified();
         $this->assertRational($rational);

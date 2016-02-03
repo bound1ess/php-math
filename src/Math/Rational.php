@@ -140,6 +140,18 @@ final class Rational extends Real implements RationalContract {
         return true;
     }
 
+    public function isEqualToInteger(Integer $value): bool {
+        return $this->isEqualTo(Rational::makeInteger($value));
+    }
+
+    public function isLessThanInteger(Integer $value): bool {
+        return $this->isLessThan(Rational::makeInteger($value));
+    }
+
+    public function isGreaterThanInteger(Integer $value): bool {
+        return $this->isGreaterThan(Rational::makeInteger($value));
+    }
+
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;
