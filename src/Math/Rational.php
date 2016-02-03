@@ -82,6 +82,19 @@ final class Rational extends Real implements RationalContract {
         return $this->add($value->multiply($coef));
     }
 
+    public function getSimplified(): Rational {
+        $gcd = $this->num->getGreatestCommonDivisor($this->denom);
+        $newNum = $this->num->getValue() / $gcd;
+        $newDenom = $this->denom->getValue() / $gcd;
+        return new Rational(new Integer($newNum), new Integer($newDenom));
+    }
+
+    public function simplify() {
+        $newRational = $this->getSimplified();
+        $this->num = $newRational->num;
+        $this->denom = $newRational->denom;
+    }
+
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;

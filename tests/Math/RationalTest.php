@@ -128,6 +128,19 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 30);
     }
 
+    public function testGetSimplifiedMethod() {
+        $rational = $this->make(10, 20)->getSimplified();
+        $this->assertEquals($rational->getNumerator()->getValue(), 1);
+        $this->assertEquals($rational->getDenominator()->getValue(), 2);
+    }
+
+    public function testSimplifyMethod() {
+        $rational = $this->make(15, 40);
+        $rational->simplify();
+        $this->assertEquals($rational->getNumerator()->getValue(), 3);
+        $this->assertEquals($rational->getDenominator()->getValue(), 8);
+    }
+
     public function testIsPositiveMethod() {
         $this->assertTrue($this->make(3, 7)->isPositive());
         $this->assertTrue($this->make(-5, -10)->isPositive());
