@@ -110,6 +110,18 @@ final class Rational extends Real implements RationalContract {
         $this->denom = $newRational->getDenominator();
     }
 
+    public function isEqualTo(Rational $value): bool {
+        $first = $this->getSimplified();
+        $second = $value->getSimplified();
+        if ($first->getNumerator()->getValue() != $second->getNumerator()->getValue()) {
+            return false;
+        }
+        if ($first->getDenominator()->getValue() != $second->getDenominator()->getValue()) {
+            return false;
+        }
+        return true;
+    }
+
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;

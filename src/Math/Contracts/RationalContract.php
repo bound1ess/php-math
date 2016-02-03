@@ -27,7 +27,7 @@ interface RationalContract {
     public function increment();
     public function decrement();
 
-    //public function isEqualTo(Rational $value): bool;
+    public function isEqualTo(Rational $value): bool;
     //public function isLessThan(Rational $value): bool;
     //public function isGreaterThan(Rational $value): bool;
 

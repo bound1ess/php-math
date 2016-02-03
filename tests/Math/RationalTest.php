@@ -170,6 +170,15 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 5);
     }
 
+    public function testIsEqualToMethod() {
+        $this->assertTrue($this->make(1, 3)->isEqualTo($this->make(1, 3)));
+        $this->assertTrue($this->make(5, 10)->isEqualTo($this->make(1, 2)));
+        $this->assertTrue($this->make(18, 24)->isEqualTo($this->make(21, 28)));
+        $this->assertFalse($this->make(3, 7)->isEqualTo($this->make(7, 3)));
+        $this->assertFalse($this->make(9, 12)->isEqualTo($this->make(3, 5)));
+        $this->assertFalse($this->make(10, 1)->isEqualTo($this->make(110, 10)));
+    }
+
     public function testGetSimplifiedMethod() {
         $rational = $this->make(10, 20)->getSimplified();
         $this->assertRational($rational);
