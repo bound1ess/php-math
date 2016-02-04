@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
-        <testsuite name="Math Test Suite">
+        <testsuite name="Math test suite">
             <directory>tests/Math</directory>
+        </testsuite>
+        <testsuite name="Math helpers test suite">
+            <directory>tests/helpers</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>src/Math</directory>
+            <directory>src</directory>
         </whitelist>
         <blacklist>
             <directory>vendor</directory>

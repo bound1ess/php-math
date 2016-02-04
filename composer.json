@@ -11,6 +11,9 @@
     "autoload": {
         "psr-4": {
             "Math\\": "src/Math"
-        }
+        },
+        "files": [
+            "src/helpers/rational.php"
+        ]
     }
 }

@@ -15,9 +15,9 @@ class RationalTest extends Dev\TestCase {
     }
 
     public function testConstructorMethod() {
-        $rational = $this->make(15, -16);
-        $this->assertEquals($rational->getNumerator()->getValue(), 15);
-        $this->assertEquals($rational->getDenominator()->getValue(), -16);
+        $rational = Rational::make($this->makeInteger(-15), $this->makeInteger(16));
+        $this->assertEquals($rational->getNumerator()->getValue(), -15);
+        $this->assertEquals($rational->getDenominator()->getValue(), 16);
     }
 
     public function testHelperConstructorMethods() {

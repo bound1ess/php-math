@@ -21,6 +21,10 @@ final class Rational extends Real implements RationalContract {
         }
     }
 
+    public static function make(Integer $num, Integer $denom) {
+        return new Rational($num, $denom);
+    }
+
     public static function makeInteger(Integer $num): Rational {
         return new Rational($num, new Integer(static::$ONE));
     }
