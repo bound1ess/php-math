@@ -3,7 +3,7 @@
 namespace Math;
 
 use Math\Contracts\IntegerContract;
-use Math\Exceptions\LcmNotDefinedException;
+use Math\Exceptions\{LcmNotDefinedException, DivisionByZeroException};
 
 final class Integer extends Real implements IntegerContract {
 
@@ -24,6 +24,25 @@ final class Integer extends Real implements IntegerContract {
 
     public function getAbsoluteValue(): int {
         return abs($this->value);
+    }
+
+    public function add(Integer $value): Integer {
+        return new Integer($this->value + $value->getValue());
+    }
+
+    public function subtract(Integer $value): Integer {
+        return new Integer($this->value - $value->getValue());
+    }
+
+    public function multiply(Integer $value): Integer {
+        return new Integer($this->value * $value->getValue());
+    }
+
+    public function divide(Integer $value): Integer {
+        if ($value->getValue() == 0) {
+            throw new DivisionByZeroException();
+        }
+        return new Integer(intdiv($this->value, $value->getValue()));
     }
 
     public function getGreatestCommonDivisor(Integer $value): int {
