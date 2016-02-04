@@ -11,8 +11,11 @@ final class Integer extends Real implements IntegerContract {
 
     private $value;
 
+    private $isPrime, $isPrimeTestCached;
+
     public function __construct(int $value) {
         $this->value = $value;
+        $this->isPrimeTestCached = false;
     }
 
     public function getValue(): int {
@@ -56,6 +59,25 @@ final class Integer extends Real implements IntegerContract {
         }
 
         return abs($first * $second) / $gcd;
+    }
+
+    public function isPrime(): bool {
+        if ($this->isPrimeTestCached) {
+            return $this->isPrime;
+        }
+        $isPrime = false;
+        if (1 < $this->value) {
+            $isPrime = true;
+            for ($divisor = 2; $divisor * $divisor <= $this->value; ++$divisor) {
+                if ($this->value % $divisor == 0) {
+                    $isPrime = false;
+                    break;
+                }
+            }
+        }
+        $this->isPrimeTestCached = true;
+        $this->isPrime = $isPrime;
+        return $isPrime;
     }
 
     public function isPositive(): bool {

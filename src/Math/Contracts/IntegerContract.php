@@ -12,4 +12,6 @@ interface IntegerContract {
 
     public function getGreatestCommonDivisor(Integer $value): int;
     public function getLeastCommonMultiple(Integer $value): int;
+
+    public function isPrime(): bool;
 }
