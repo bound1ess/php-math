@@ -7,11 +7,32 @@ use Math\Contracts\RationalContract;
 
 final class Rational extends Real implements RationalContract {
 
+    /**
+     * @var int
+     */
     private static $ZERO = 0;
+
+    /**
+     * @var int
+     */
     private static $ONE = 1;
 
-    private $num, $denom;
+    /**
+     * @var Integer
+     */
+    private $num;
 
+    /**
+     * @var Integer
+     */
+    private $denom;
+
+    /**
+     * @param Integer $num
+     * @param Integer $denom
+     * @throws ZeroDenominatorException
+     * @return void
+     */
     public function __construct(Integer $num, Integer $denom) {
         $this->num = $num;
         $this->denom = $denom;
@@ -21,85 +42,129 @@ final class Rational extends Real implements RationalContract {
         }
     }
 
-    public static function make(Integer $num, Integer $denom) {
+    /**
+     * @param Integer $num
+     * @param Integer $denom
+     * @return Rational
+     */
+    public static function make(Integer $num, Integer $denom): Rational {
         return new Rational($num, $denom);
     }
 
+    /**
+     * @param Integer $num
+     * @return Rational
+     */
     public static function makeInteger(Integer $num): Rational {
-        return new Rational($num, new Integer(static::$ONE));
+        return new Rational($num, integer(static::$ONE));
     }
 
+    /**
+     * @param Integer|null $denom
+     * @return Rational
+     */
     public static function makeZero(Integer $denom = null): Rational {
         if (null == $denom) {
-            $denom = new Integer(static::$ONE);
+            $denom = integer(static::$ONE);
         }
-        return new Rational(new Integer(static::$ZERO), $denom);
+        return new Rational(integer(static::$ZERO), $denom);
     }
 
+    /**
+     * @return Integer
+     */
     public function getNumerator(): Integer {
         return $this->num;
     }
 
-    public function setNumerator(Integer $newNum) {
-        $this->num = $newNum;
-    }
-
+    /**
+     * @return Integer
+     */
     public function getDenominator(): Integer {
         return $this->denom;
     }
 
-    public function setDenominator(Integer $newDenom) {
-        if ($newDenom->getValue() == static::$ZERO) {
-            throw new ZeroDenominatorException();
-        }
-        $this->denom = $newDenom;
-    }
-
+    /**
+     * @throws NoInverseException
+     * @return Rational
+     */
     public function getInverse(): Rational {
         if ($this->num->getValue() == static::$ZERO) {
             throw new NoInverseException();
         }
-        $newNum = new Integer($this->denom->getValue());
-        $newDenom = new Integer($this->num->getValue());
+        $newNum = integer($this->denom->getValue());
+        $newDenom = integer($this->num->getValue());
         return new Rational($newNum, $newDenom);
     }
 
+    /**
+     * @param Rational $value
+     * @return Rational
+     */
     public function multiply(Rational $value): Rational {
         $newNum = $this->num->getValue() * $value->getNumerator()->getValue();
         $newDenom = $this->denom->getValue() * $value->getDenominator()->getValue();
-        return new Rational(new Integer($newNum), new Integer($newDenom));
+        return new Rational(integer($newNum), integer($newDenom));
     }
 
+    /**
+     * @param Rational $value
+     * @return Rational
+     */
     public function divide(Rational $value): Rational {
         return $this->multiply($value->getInverse());
     }
 
+    /**
+     * @param Rational $value
+     * @return Rational
+     */
     public function add(Rational $value): Rational {
         $newNum = $this->num->getValue() * $value->denom->getValue();
         $newNum += $value->num->getValue() * $this->denom->getValue();
         $newDenom = $value->denom->getValue() * $this->denom->getValue();
-        return new Rational(new Integer($newNum), new Integer($newDenom));
+        return new Rational(integer($newNum), integer($newDenom));
     }
 
+    /**
+     * @param Rational $value
+     * @return Rational
+     */
     public function subtract(Rational $value): Rational {
-        $coef = new Rational(new Integer(-static::$ONE), new Integer(static::$ONE));
+        $coef = new Rational(integer(-static::$ONE), integer(static::$ONE));
         return $this->add($value->multiply($coef));
     }
 
+    /**
+     * @param Integer $value
+     * @return Rational
+     */
     public function multiplyByInteger(Integer $value): Rational {
-        return $this->multiply(Rational::makeInteger($value));
+        return $this->multiply(static::makeInteger($value));
     }
 
+    /**
+     * @param Integer $value
+     * @return Rational
+     */
     public function divideByInteger(Integer $value): Rational {
-        return $this->divide(Rational::makeInteger($value));
+        return $this->divide(static::makeInteger($value));
     }
 
+    /**
+     * @param Integer $value
+     * @return Rational
+     */
     public function addInteger(Integer $value): Rational {
-        return $this->add(Rational::makeInteger($value));
+        return $this->add(static::makeInteger($value));
     }
 
+    /**
+     * @param Integer $value
+     * @return Rational
+     */
     public function subtractInteger(Integer $value): Rational {
-        return $this->subtract(Rational::makeInteger($value));
+        return $this->subtract(static::makeInteger($value));
     }
 
     public function increment() {
@@ -169,26 +234,33 @@ final class Rational extends Real implements RationalContract {
         $this->denom = $newRational->getDenominator();
     }
 
+    /**
+     * @return bool
+     */
     public function isPositive(): bool {
         if ($this->num->isPositive() && $this->denom->isPositive()) {
             return true;
         } else if ($this->num->isNegative() && $this->denom->isNegative()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isNegative(): bool {
         if ($this->num->isNegative() && $this->denom->isPositive()) {
             return true;
         } else if ($this->num->isPositive() && $this->denom->isNegative()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isZero(): bool {
         return $this->num->isZero();
     }
