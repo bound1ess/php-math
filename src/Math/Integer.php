@@ -45,6 +45,22 @@ final class Integer extends Real implements IntegerContract {
         return new Integer(intdiv($this->value, $value->getValue()));
     }
 
+    public function modulo(Integer $value): Integer {
+        if ($value->getValue() == 0) {
+            throw new DivisionByZeroException();
+        }
+        return new Integer($this->value % $value->getValue());
+    }
+
+    public function isDivisibleBy(Integer $value): bool {
+        try {
+            $modulo = $this->modulo($value)->getValue();
+            return 0 == $modulo;
+        } catch (DivisionByZeroException $error) {
+            return false;
+        }
+    }
+
     public function getGreatestCommonDivisor(Integer $value): int {
         $first = $this->getAbsoluteValue();
         $second = $value->getAbsoluteValue();

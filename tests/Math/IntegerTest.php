@@ -55,6 +55,29 @@ class IntegerTest extends Dev\TestCase {
         $this->make(1)->divide($this->make(0));
     }
 
+    public function testModuloMethod() {
+        $this->assertInteger($this->make(5)->modulo($this->make(6)));
+        $this->assertEquals($this->make(7)->modulo($this->make(3))->getValue(), 1);
+        $this->assertEquals($this->make(-19)->modulo($this->make(7))->getValue(), -5);
+        $this->assertEquals($this->make(37)->modulo($this->make(-11))->getValue(), 4);
+        $this->assertEquals($this->make(-59)->modulo($this->make(-13))->getValue(), -7);
+
+        $this->setExpectedException('Math\\Exceptions\\DivisionByZeroException');
+        $this->make(1)->modulo($this->make(0));
+    }
+
+    public function testIsDivisibleByMethod() {
+        $this->assertTrue($this->make(14)->isDivisibleBy($this->make(2)));
+        $this->assertTrue($this->make(68)->isDivisibleBy($this->make(-17)));
+        $this->assertTrue($this->make(-27)->isDivisibleBy($this->make(9)));
+        $this->assertTrue($this->make(-62)->isDivisibleBy($this->make(-31)));
+
+        $this->assertFalse($this->make(40)->isDivisibleBy($this->make(13)));
+        $this->assertFalse($this->make(77)->isDivisibleBy($this->make(5)));
+        $this->assertFalse($this->make(39)->isDivisibleBy($this->make(18)));
+        $this->assertFalse($this->make(15)->isDivisibleBy($this->make(0)));
+    }
+
     public function testGetGreatestCommonDivisorMethod() {
         $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(5)), 5);
         $this->assertEquals($this->make(7)->getGreatestCommonDivisor($this->make(0)), 7);

@@ -14,8 +14,8 @@ interface IntegerContract {
     public function multiply(Integer $value): Integer;
     public function divide(Integer $value): Integer;
 
-    //public function mod(Integer $value): Integer;
-    //public function isDivisibleBy(Integer $value): bool;
+    public function modulo(Integer $value): Integer;
+    public function isDivisibleBy(Integer $value): bool;
 
     public function getGreatestCommonDivisor(Integer $value): int;
     public function getLeastCommonMultiple(Integer $value): int;
