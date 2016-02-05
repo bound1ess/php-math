@@ -48,7 +48,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public static function make(Integer $num, Integer $denom): Rational {
-        return new Rational($num, $denom);
+        return new static($num, $denom);
     }
 
     /**
@@ -56,7 +56,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public static function makeInteger(Integer $num): Rational {
-        return new Rational($num, integer(static::$ONE));
+        return new static($num, integer(static::$ONE));
     }
 
     /**
@@ -67,7 +67,7 @@ final class Rational extends Real implements RationalContract {
         if (null == $denom) {
             $denom = integer(static::$ONE);
         }
-        return new Rational(integer(static::$ZERO), $denom);
+        return new static(integer(static::$ZERO), $denom);
     }
 
     /**
@@ -94,7 +94,7 @@ final class Rational extends Real implements RationalContract {
         }
         $newNum = integer($this->denom->getValue());
         $newDenom = integer($this->num->getValue());
-        return new Rational($newNum, $newDenom);
+        return new static($newNum, $newDenom);
     }
 
     /**
@@ -104,7 +104,7 @@ final class Rational extends Real implements RationalContract {
     public function multiply(Rational $value): Rational {
         $newNum = $this->num->getValue() * $value->getNumerator()->getValue();
         $newDenom = $this->denom->getValue() * $value->getDenominator()->getValue();
-        return new Rational(integer($newNum), integer($newDenom));
+        return new static(integer($newNum), integer($newDenom));
     }
 
     /**
@@ -123,7 +123,7 @@ final class Rational extends Real implements RationalContract {
         $newNum = $this->num->getValue() * $value->denom->getValue();
         $newNum += $value->num->getValue() * $this->denom->getValue();
         $newDenom = $value->denom->getValue() * $this->denom->getValue();
-        return new Rational(integer($newNum), integer($newDenom));
+        return new static(integer($newNum), integer($newDenom));
     }
 
     /**
@@ -131,7 +131,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public function subtract(Rational $value): Rational {
-        $coef = new Rational(integer(-static::$ONE), integer(static::$ONE));
+        $coef = new static(integer(-static::$ONE), integer(static::$ONE));
         return $this->add($value->multiply($coef));
     }
 
@@ -167,18 +167,24 @@ final class Rational extends Real implements RationalContract {
         return $this->subtract(static::makeInteger($value));
     }
 
-    public function increment() {
-        $newRational = $this->addInteger(new Integer(static::$ONE));
-        $this->num = $newRational->getNumerator();
-        $this->denom = $newRational->getDenominator();
+    /**
+     * @return Integer
+     */
+    public function getIntegerPart(): Integer {
+        return $this->num->divide($this->denom);
     }
 
-    public function decrement() {
-        $newRational = $this->subtractInteger(new Integer(static::$ONE));
-        $this->num = $newRational->getNumerator();
-        $this->denom = $newRational->getDenominator();
+    /**
+     * @return Rational
+     */
+    public function getFractionalPart(): Rational {
+        return new static($this->num->modulo($this->denom), $this->denom);
     }
 
+    /**
+     * @param Rational $value
+     * @return bool
+     */
     public function isEqualTo(Rational $value): bool {
         $first = $this->getSimplified();
         $second = $value->getSimplified();
@@ -191,17 +197,28 @@ final class Rational extends Real implements RationalContract {
         return true;
     }
 
+    /**
+     * @param Rational $value
+     * @return bool
+     */
     public function isLessThan(Rational $value): bool {
         $first = $this->getSimplified();
         $second = $value->getSimplified();
         $lcm = $first->getDenominator()->getLeastCommonMultiple($second->getDenominator());
+
         $left = $first->getNumerator()->getValue();
         $left *= $lcm / $first->getDenominator()->getValue();
+
         $right = $second->getNumerator()->getValue();
         $right *= $lcm / $second->getDenominator()->getValue();
+
         return $left < $right;
     }
 
+    /**
+     * @param Rational $value
+     * @return bool
+     */
     public function isGreaterThan(Rational $value): bool {
         if ($this->isEqualTo($value) || $this->isLessThan($value)) {
             return false;
@@ -209,29 +226,38 @@ final class Rational extends Real implements RationalContract {
         return true;
     }
 
+    /**
+     * @param Integer $value
+     * @return bool
+     */
     public function isEqualToInteger(Integer $value): bool {
-        return $this->isEqualTo(Rational::makeInteger($value));
+        return $this->isEqualTo(static::makeInteger($value));
     }
 
+    /**
+     * @param Integer $value
+     * @return bool
+     */
     public function isLessThanInteger(Integer $value): bool {
-        return $this->isLessThan(Rational::makeInteger($value));
+        return $this->isLessThan(static::makeInteger($value));
     }
 
+    /**
+     * @param Integer $value
+     * @return bool
+     */
     public function isGreaterThanInteger(Integer $value): bool {
-        return $this->isGreaterThan(Rational::makeInteger($value));
+        return $this->isGreaterThan(static::makeInteger($value));
     }
 
+    /**
+     * @return Rational
+     */
     public function getSimplified(): Rational {
         $gcd = $this->num->getGreatestCommonDivisor($this->denom);
         $newNum = $this->num->getValue() / $gcd;
         $newDenom = $this->denom->getValue() / $gcd;
-        return new Rational(new Integer($newNum), new Integer($newDenom));
-    }
-
-    public function simplify() {
-        $newRational = $this->getSimplified();
-        $this->num = $newRational->getNumerator();
-        $this->denom = $newRational->getDenominator();
+        return new static(integer($newNum), integer($newDenom));
     }
 
     /**

@@ -139,18 +139,19 @@ class RationalTest extends Dev\TestCase {
         $this->assertEquals($rational->getDenominator()->getValue(), 5);
     }
 
-    public function testIncrementMethod() {
-        $rational = $this->make(1, 2);
-        $rational->increment();
-        $this->assertEquals($rational->getNumerator()->getValue(), 3);
-        $this->assertEquals($rational->getDenominator()->getValue(), 2);
+    public function testGetIntegerPartMethod() {
+        $this->assertInteger($this->make(7, 8)->getIntegerPart());
+        $this->assertEquals($this->make(11, 12)->getIntegerPart()->getValue(), 0);
+        $this->assertEquals($this->make(17, 10)->getIntegerPart()->getValue(), 1);
+        $this->assertEquals($this->make(33, 11)->getIntegerPart()->getValue(), 3);
+        $this->assertEquals($this->make(49, 8)->getIntegerPart()->getValue(), 6);
     }
 
-    public function testDecrementMethod() {
-        $rational = $this->make(2, 5);
-        $rational->decrement();
-        $this->assertEquals($rational->getNumerator()->getValue(), -3);
-        $this->assertEquals($rational->getDenominator()->getValue(), 5);
+    public function testGetFractionalPartMethod() {
+        $this->assertRational($this->make(1, 2)->getFractionalPart());
+        $part = $this->make(5, 3)->getFractionalPart();
+        $this->assertEquals($part->getNumerator()->getValue(), 2);
+        $this->assertEquals($part->getDenominator()->getValue(), 3);
     }
 
     public function testIsEqualToMethod() {
@@ -212,13 +213,6 @@ class RationalTest extends Dev\TestCase {
         $this->assertRational($rational);
         $this->assertEquals($rational->getNumerator()->getValue(), 1);
         $this->assertEquals($rational->getDenominator()->getValue(), 2);
-    }
-
-    public function testSimplifyMethod() {
-        $rational = $this->make(15, 40);
-        $rational->simplify();
-        $this->assertEquals($rational->getNumerator()->getValue(), 3);
-        $this->assertEquals($rational->getDenominator()->getValue(), 8);
     }
 
     public function testIsPositiveMethod() {

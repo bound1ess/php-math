@@ -21,8 +21,8 @@ interface RationalContract {
     public function addInteger(Integer $value): Rational;
     public function subtractInteger(Integer $value): Rational;
 
-    public function increment();
-    public function decrement();
+    public function getIntegerPart(): Integer;
+    public function getFractionalPart(): Rational;
 
     public function isEqualTo(Rational $value): bool;
     public function isLessThan(Rational $value): bool;
@@ -32,6 +32,5 @@ interface RationalContract {
     public function isLessThanInteger(Integer $value): bool;
     public function isGreaterThanInteger(Integer $value): bool;
 
-    public function simplify();
     public function getSimplified(): Rational;
 }
