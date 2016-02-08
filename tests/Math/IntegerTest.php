@@ -133,6 +133,13 @@ class IntegerTest extends Dev\TestCase {
         $this->assertEquals($this->make(0)->flipSign()->getValue(), 0);
     }
 
+    public function testGetDigitsMethod() {
+        $this->assertInternalType('array', $this->make(123)->getDigits());
+        $this->assertEquals($this->make(123)->getDigits(), [1, 2, 3]);
+        $this->assertEquals($this->make(0)->getDigits(), []);
+        $this->assertEquals($this->make(-789)->getDigits(), [7, 8, 9]);
+    }
+
     public function testIsLessThanMethod() {
         $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
         $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));

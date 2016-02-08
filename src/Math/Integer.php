@@ -217,6 +217,19 @@ final class Integer extends Real implements IntegerContract {
     }
 
     /**
+     * @return array
+     */
+    public function getDigits(): array {
+        $digits = [];
+        $value = abs($this->value);
+        while (0 < $value) {
+            $digits[] = $value % 10;
+            $value = intdiv($value, 10);
+        }
+        return array_reverse($digits);
+    }
+
+    /**
      * @param Integer $value
      * @return bool
      */
