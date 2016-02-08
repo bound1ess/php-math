@@ -15,9 +15,10 @@ class IntegerTest extends Dev\TestCase {
     }
 
     public function testGetAbsoluteValueMethod() {
-        $this->assertEquals($this->make(5)->getAbsoluteValue(), 5);
-        $this->assertEquals($this->make(-10)->getAbsoluteValue(), 10);
-        $this->assertEquals($this->make(0)->getAbsoluteValue(), 0);
+        $this->assertInteger($this->make(1)->getAbsoluteValue());
+        $this->assertEquals($this->make(5)->getAbsoluteValue()->getValue(), 5);
+        $this->assertEquals($this->make(-10)->getAbsoluteValue()->getValue(), 10);
+        $this->assertEquals($this->make(0)->getAbsoluteValue()->getValue(), 0);
     }
 
     public function testAddMethod() {
@@ -78,23 +79,25 @@ class IntegerTest extends Dev\TestCase {
         $this->assertFalse($this->make(15)->isDivisibleBy($this->make(0)));
     }
 
-    public function testGetGreatestCommonDivisorMethod() {
-        $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(5)), 5);
-        $this->assertEquals($this->make(7)->getGreatestCommonDivisor($this->make(0)), 7);
-        $this->assertEquals($this->make(0)->getGreatestCommonDivisor($this->make(0)), 0);
-        $this->assertEquals($this->make(37)->getGreatestCommonDivisor($this->make(1)), 1);
-        $this->assertEquals($this->make(4)->getGreatestCommonDivisor($this->make(32)), 4);
-        $this->assertEquals($this->make(15)->getGreatestCommonDivisor($this->make(55)), 5);
-        $this->assertEquals($this->make(17)->getGreatestCommonDivisor($this->make(7)), 1);
+    public function testGetGcdMethod() {
+        $this->assertInteger($this->make(1)->getGcd($this->make(1)));
+        $this->assertEquals($this->make(0)->getGcd($this->make(5))->getValue(), 5);
+        $this->assertEquals($this->make(7)->getGcd($this->make(0))->getValue(), 7);
+        $this->assertEquals($this->make(0)->getGcd($this->make(0))->getValue(), 0);
+        $this->assertEquals($this->make(37)->getGcd($this->make(1))->getValue(), 1);
+        $this->assertEquals($this->make(4)->getGcd($this->make(32))->getValue(), 4);
+        $this->assertEquals($this->make(15)->getGcd($this->make(55))->getValue(), 5);
+        $this->assertEquals($this->make(17)->getGcd($this->make(7))->getValue(), 1);
     }
 
-    public function testGetLeastCommonMultipleMethod() {
-        $this->assertEquals($this->make(5)->getLeastCommonMultiple($this->make(20)), 20);
-        $this->assertEquals($this->make(3)->getLeastCommonMultiple($this->make(7)), 21);
-        $this->assertEquals($this->make(12)->getLeastCommonMultiple($this->make(16)), 48);
+    public function testGetLcmMethod() {
+        $this->assertInteger($this->make(1)->getLcm($this->make(1)));
+        $this->assertEquals($this->make(5)->getLcm($this->make(20))->getValue(), 20);
+        $this->assertEquals($this->make(3)->getLcm($this->make(7))->getValue(), 21);
+        $this->assertEquals($this->make(12)->getLcm($this->make(16))->getValue(), 48);
 
         $this->setExpectedException('Math\\Exceptions\\LcmNotDefinedException');
-        $this->make(0)->getLeastCommonMultiple($this->make(0));
+        $this->make(0)->getLcm($this->make(0));
     }
 
     public function testIsPrimeMethod() {

@@ -7,7 +7,7 @@ use Math\Integer;
 interface IntegerContract {
 
     public function getValue(): int;
-    public function getAbsoluteValue(): int;
+    public function getAbsoluteValue(): Integer;
 
     public function add(Integer $value): Integer;
     public function subtract(Integer $value): Integer;
@@ -17,8 +17,9 @@ interface IntegerContract {
     public function modulo(Integer $value): Integer;
     public function isDivisibleBy(Integer $value): bool;
 
-    public function getGreatestCommonDivisor(Integer $value): int;
-    public function getLeastCommonMultiple(Integer $value): int;
+    public function getGcd(Integer $value): Integer;
+    public function getLcm(Integer $value): Integer;
 
     public function isPrime(): bool;
+    //public function getFactors(): array;
 }

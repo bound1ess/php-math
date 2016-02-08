@@ -11,7 +11,8 @@ final class Integer extends Real implements IntegerContract {
 
     private $value;
 
-    private $isPrime, $isPrimeTestCached;
+    private $isPrime;
+    private $isPrimeTestCached;
 
     public function __construct(int $value) {
         $this->value = $value;
@@ -22,34 +23,34 @@ final class Integer extends Real implements IntegerContract {
         return $this->value;
     }
 
-    public function getAbsoluteValue(): int {
-        return abs($this->value);
+    public function getAbsoluteValue(): Integer {
+        return new static(abs($this->value));
     }
 
     public function add(Integer $value): Integer {
-        return new Integer($this->value + $value->getValue());
+        return new static($this->value + $value->getValue());
     }
 
     public function subtract(Integer $value): Integer {
-        return new Integer($this->value - $value->getValue());
+        return new static($this->value - $value->getValue());
     }
 
     public function multiply(Integer $value): Integer {
-        return new Integer($this->value * $value->getValue());
+        return new static($this->value * $value->getValue());
     }
 
     public function divide(Integer $value): Integer {
         if ($value->getValue() == 0) {
             throw new DivisionByZeroException();
         }
-        return new Integer(intdiv($this->value, $value->getValue()));
+        return new static(intdiv($this->value, $value->getValue()));
     }
 
     public function modulo(Integer $value): Integer {
         if ($value->getValue() == 0) {
             throw new DivisionByZeroException();
         }
-        return new Integer($this->value % $value->getValue());
+        return new static($this->value % $value->getValue());
     }
 
     public function isDivisibleBy(Integer $value): bool {
@@ -61,16 +62,16 @@ final class Integer extends Real implements IntegerContract {
         }
     }
 
-    public function getGreatestCommonDivisor(Integer $value): int {
-        $first = $this->getAbsoluteValue();
-        $second = $value->getAbsoluteValue();
+    public function getGcd(Integer $value): Integer {
+        $first = $this->getAbsoluteValue()->getValue();
+        $second = $value->getAbsoluteValue()->getValue();
 
         if (0 == $first && 0 == $second) {
-            return 0;
+            return new static(static::$ZERO);
         } else if (0 == $first) {
-            return $second;
+            return new static($second);
         } else if (0 == $second) {
-            return $first;
+            return new static($first);
         }
 
         while (true) {
@@ -81,19 +82,19 @@ final class Integer extends Real implements IntegerContract {
             $first = $second;
             $second = $remainder;
         }
-        return $second;
+        return new static($second);
     }
 
-    public function getLeastCommonMultiple(Integer $value): int {
+    public function getLcm(Integer $value): Integer {
         $first = $this->value;
         $second = $value->getValue();
-        $gcd = $this->getGreatestCommonDivisor($value);
+        $gcd = $this->getGcd($value)->getValue();
 
         if (0 == $gcd) {
             throw new LcmNotDefinedException();
         }
 
-        return abs($first * $second) / $gcd;
+        return new static(abs($first * $second) / $gcd);
     }
 
     public function isPrime(): bool {

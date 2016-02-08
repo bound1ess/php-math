@@ -204,7 +204,7 @@ final class Rational extends Real implements RationalContract {
     public function isLessThan(Rational $value): bool {
         $first = $this->getSimplified();
         $second = $value->getSimplified();
-        $lcm = $first->getDenominator()->getLeastCommonMultiple($second->getDenominator());
+        $lcm = $first->getDenominator()->getLcm($second->getDenominator())->getValue();
 
         $left = $first->getNumerator()->getValue();
         $left *= $lcm / $first->getDenominator()->getValue();
@@ -254,7 +254,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public function getSimplified(): Rational {
-        $gcd = $this->num->getGreatestCommonDivisor($this->denom);
+        $gcd = $this->num->getGcd($this->denom)->getValue();
         $newNum = $this->num->getValue() / $gcd;
         $newDenom = $this->denom->getValue() / $gcd;
         return new static(integer($newNum), integer($newDenom));
