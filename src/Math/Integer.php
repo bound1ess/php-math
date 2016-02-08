@@ -7,38 +7,77 @@ use Math\Exceptions\{LcmNotDefinedException, DivisionByZeroException};
 
 final class Integer extends Real implements IntegerContract {
 
+    /**
+     * @var int
+     */
     private static $ZERO = 0;
 
+    /**
+     * @var int
+     */
     private $value;
 
+    /**
+     * @var bool
+     */
     private $isPrime;
+
+    /**
+     * @var bool
+     */
     private $isPrimeTestCached;
 
+    /**
+     * @param int $value
+     * @return void
+     */
     public function __construct(int $value) {
         $this->value = $value;
         $this->isPrimeTestCached = false;
     }
 
+    /**
+     * @return int
+     */
     public function getValue(): int {
         return $this->value;
     }
 
+    /**
+     * @return Integer
+     */
     public function getAbsoluteValue(): Integer {
         return new static(abs($this->value));
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function add(Integer $value): Integer {
         return new static($this->value + $value->getValue());
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function subtract(Integer $value): Integer {
         return new static($this->value - $value->getValue());
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function multiply(Integer $value): Integer {
         return new static($this->value * $value->getValue());
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function divide(Integer $value): Integer {
         if ($value->getValue() == 0) {
             throw new DivisionByZeroException();
@@ -46,6 +85,10 @@ final class Integer extends Real implements IntegerContract {
         return new static(intdiv($this->value, $value->getValue()));
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function modulo(Integer $value): Integer {
         if ($value->getValue() == 0) {
             throw new DivisionByZeroException();
@@ -53,6 +96,10 @@ final class Integer extends Real implements IntegerContract {
         return new static($this->value % $value->getValue());
     }
 
+    /**
+     * @param Integer $value
+     * @return bool
+     */
     public function isDivisibleBy(Integer $value): bool {
         try {
             $modulo = $this->modulo($value)->getValue();
@@ -62,6 +109,10 @@ final class Integer extends Real implements IntegerContract {
         }
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function getGcd(Integer $value): Integer {
         $first = $this->getAbsoluteValue()->getValue();
         $second = $value->getAbsoluteValue()->getValue();
@@ -85,6 +136,10 @@ final class Integer extends Real implements IntegerContract {
         return new static($second);
     }
 
+    /**
+     * @param Integer $value
+     * @return Integer
+     */
     public function getLcm(Integer $value): Integer {
         $first = $this->value;
         $second = $value->getValue();
@@ -97,6 +152,9 @@ final class Integer extends Real implements IntegerContract {
         return new static(abs($first * $second) / $gcd);
     }
 
+    /**
+     * @return bool
+     */
     public function isPrime(): bool {
         if ($this->isPrimeTestCached) {
             return $this->isPrime;
@@ -116,14 +174,23 @@ final class Integer extends Real implements IntegerContract {
         return $isPrime;
     }
 
+    /**
+     * @return bool
+     */
     public function isPositive(): bool {
         return static::$ZERO < $this->value;
     }
 
+    /**
+     * @return bool
+     */
     public function isNegative(): bool {
         return static::$ZERO > $this->value;
     }
 
+    /**
+     * @return bool
+     */
     public function isZero(): bool {
         return static::$ZERO == $this->value;
     }
