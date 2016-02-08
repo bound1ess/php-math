@@ -207,6 +207,16 @@ final class Integer extends Real implements IntegerContract {
     }
 
     /**
+     * @return Integer
+     */
+    public function flipSign(): Integer {
+        if (static::$ZERO == $this->value) {
+            return new static(static::$ZERO);
+        }
+        return new static($this->value * -1);
+    }
+
+    /**
      * @param Integer $value
      * @return bool
      */

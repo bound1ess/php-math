@@ -27,6 +27,6 @@ interface IntegerContract {
     public function isEqualTo(Integer $value): bool;
     public function isGreaterThan(Integer $value): bool;
 
-    //public function flipSign(): Integer;
+    public function flipSign(): Integer;
     //public function getDigits(): array;
 }

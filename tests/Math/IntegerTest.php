@@ -126,6 +126,13 @@ class IntegerTest extends Dev\TestCase {
         $this->assertCount(2, $integer->getFactors());
     }
 
+    public function testFlipSignMethod() {
+        $this->assertInteger($this->make(1)->flipSign());
+        $this->assertEquals($this->make(5)->flipSign()->getValue(), -5);
+        $this->assertEquals($this->make(-3)->flipSign()->getValue(), 3);
+        $this->assertEquals($this->make(0)->flipSign()->getValue(), 0);
+    }
+
     public function testIsLessThanMethod() {
         $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
         $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));
