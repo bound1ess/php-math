@@ -21,5 +21,5 @@ interface IntegerContract {
     public function getLcm(Integer $value): Integer;
 
     public function isPrime(): bool;
-    //public function getFactors(): array;
+    public function getFactors(): array;
 }

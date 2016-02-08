@@ -114,6 +114,18 @@ class IntegerTest extends Dev\TestCase {
         $this->assertEquals($integer->isPrime(), $integer->isPrime());
     }
 
+    public function testGetFactorsMethod() {
+        $this->assertInternalType('array', $this->make(21)->getFactors());
+        $this->assertEquals($this->make(18)->getFactors(), [1, 18, 2, 9, 3, 6]);
+        $this->assertEquals($this->make(0)->getFactors(), []);
+        $this->assertEquals($this->make(-10)->getFactors(), [1, 10, 2, 5]);
+        $this->assertEquals($this->make(-16)->getFactors(), [1, 16, 2, 8, 4]);
+
+        $integer = $this->make(13);
+        $this->assertEquals($integer->getFactors(), [1, 13]);
+        $this->assertCount(2, $integer->getFactors());
+    }
+
     private function make(int $value): Integer {
         return new Integer($value);
     }

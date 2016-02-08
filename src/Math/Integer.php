@@ -28,12 +28,23 @@ final class Integer extends Real implements IntegerContract {
     private $isPrimeTestCached;
 
     /**
+     * @var array
+     */
+    private $factors;
+
+    /**
+     * @var bool
+     */
+    private $areFactorsCached;
+
+    /**
      * @param int $value
      * @return void
      */
     public function __construct(int $value) {
         $this->value = $value;
         $this->isPrimeTestCached = false;
+        $this->areFactorsCached = false;
     }
 
     /**
@@ -172,6 +183,27 @@ final class Integer extends Real implements IntegerContract {
         $this->isPrimeTestCached = true;
         $this->isPrime = $isPrime;
         return $isPrime;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFactors(): array {
+        if ($this->areFactorsCached) {
+            return $this->factors;
+        }
+        $factors = [];
+        $value = abs($this->value);
+        for ($i = 1; $i * $i <= $value; ++$i) {
+            if ($value % $i == 0) {
+                $factors[] = $i;
+                $factors[] = $value / $i;
+            }
+        }
+        $factors = array_unique($factors);
+        $this->areFactorsCached = true;
+        $this->factors = $factors;
+        return $factors;
     }
 
     /**
