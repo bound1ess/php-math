@@ -207,6 +207,30 @@ final class Integer extends Real implements IntegerContract {
     }
 
     /**
+     * @param Integer $value
+     * @return bool
+     */
+    public function isLessThan(Integer $value): bool {
+        return $this->value < $value->getValue();
+    }
+
+    /**
+     * @param Integer $value
+     * @return bool
+     */
+    public function isEqualTo(Integer $value): bool {
+        return $value->getValue() == $this->value;
+    }
+
+    /**
+     * @param Integer $value
+     * @return bool
+     */
+    public function isGreaterThan(Integer $value): bool {
+        return $value->getValue() < $this->value;
+    }
+
+    /**
      * @return bool
      */
     public function isPositive(): bool {

@@ -22,4 +22,11 @@ interface IntegerContract {
 
     public function isPrime(): bool;
     public function getFactors(): array;
+
+    public function isLessThan(Integer $value): bool;
+    public function isEqualTo(Integer $value): bool;
+    public function isGreaterThan(Integer $value): bool;
+
+    //public function flipSign(): Integer;
+    //public function getDigits(): array;
 }

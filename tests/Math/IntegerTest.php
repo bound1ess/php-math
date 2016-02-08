@@ -126,6 +126,30 @@ class IntegerTest extends Dev\TestCase {
         $this->assertCount(2, $integer->getFactors());
     }
 
+    public function testIsLessThanMethod() {
+        $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
+        $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));
+        $this->assertTrue($this->make(7)->isLessThan($this->make(9)));
+        $this->assertTrue($this->make(-2)->isLessThan($this->make(-1)));
+        $this->assertFalse($this->make(3)->isLessThan($this->make(2)));
+        $this->assertFalse($this->make(-6)->isLessThan($this->make(-7)));
+        $this->assertFalse($this->make(2)->isLessThan($this->make(-2)));
+    }
+
+    public function testIsEqualToMethod() {
+        $this->assertTrue($this->make(15)->isEqualTo($this->make(15)));
+        $this->assertFalse($this->make(-2)->isEqualTo($this->make(2)));
+    }
+
+    public function testIsGreaterThanMethod() {
+        $this->assertTrue($this->make(2)->isGreaterThan($this->make(1)));
+        $this->assertTrue($this->make(-2)->isGreaterThan($this->make(-3)));
+        $this->assertTrue($this->make(1)->isGreaterThan($this->make(0)));
+        $this->assertFalse($this->make(-2)->isGreaterThan($this->make(-1)));
+        $this->assertFalse($this->make(5)->isGreaterThan($this->make(6)));
+        $this->assertFalse($this->make(-1)->isGreaterThan($this->make(3)));
+    }
+
     private function make(int $value): Integer {
         return new Integer($value);
     }
