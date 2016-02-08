@@ -140,6 +140,17 @@ class IntegerTest extends Dev\TestCase {
         $this->assertEquals($this->make(-789)->getDigits(), [7, 8, 9]);
     }
 
+    public function testFactorialMethod() {
+        $this->assertInteger($this->make(0)->factorial());
+        $this->assertEquals($this->make(0)->factorial()->getValue(), 1);
+        $this->assertEquals($this->make(5)->factorial()->getValue(), 120);
+        $this->assertEquals($this->make(3)->factorial()->getValue(), 6);
+        $this->assertEquals($this->make(6)->factorial()->getValue(), 720);
+
+        $this->setExpectedException('Math\\Exceptions\\FactorialNotDefinedException');
+        $this->make(-1)->factorial();
+    }
+
     public function testIsLessThanMethod() {
         $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
         $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));

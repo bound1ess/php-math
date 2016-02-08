@@ -30,4 +30,6 @@ interface IntegerContract {
     public function flipSign(): Integer;
 
     public function getDigits(): array;
+
+    public function factorial(): Integer;
 }

@@ -3,7 +3,11 @@
 namespace Math;
 
 use Math\Contracts\IntegerContract;
-use Math\Exceptions\{LcmNotDefinedException, DivisionByZeroException};
+use Math\Exceptions\{
+    LcmNotDefinedException,
+    DivisionByZeroException,
+    FactorialNotDefinedException
+};
 
 final class Integer extends Real implements IntegerContract {
 
@@ -227,6 +231,23 @@ final class Integer extends Real implements IntegerContract {
             $value = intdiv($value, 10);
         }
         return array_reverse($digits);
+    }
+
+    /**
+     * @throws FactorialNotDefinedException
+     * @return Integer
+     */
+    public function factorial(): Integer {
+        if ($this->isNegative()) {
+            throw new FactorialNotDefinedException();
+        }
+        // overflows easily, warning
+        $factorial = 1;
+        $value = $this->value;
+        for ($i = 1; $i <= $value; ++$i) {
+            $factorial *= $i;
+        }
+        return new static($factorial);
     }
 
     /**
