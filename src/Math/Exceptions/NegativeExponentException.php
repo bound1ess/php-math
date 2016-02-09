@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class NegativeExponentException extends Exception {}
+final class NegativeExponentException extends Exception {}

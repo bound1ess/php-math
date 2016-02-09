@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class BaseIsZeroException extends Exception {}
+final class BaseIsZeroException extends Exception {}

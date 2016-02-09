@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class FactorialNotDefinedException extends Exception {}
+final class FactorialNotDefinedException extends Exception {}

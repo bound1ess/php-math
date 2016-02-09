@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class LcmNotDefinedException extends Exception {}
+final class LcmNotDefinedException extends Exception {}

@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class NoInverseException extends Exception {}
+final class NoInverseException extends Exception {}

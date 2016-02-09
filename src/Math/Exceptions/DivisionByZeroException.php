@@ -2,4 +2,4 @@
 
 namespace Math\Exceptions;
 
-class DivisionByZeroException extends Exception {}
+final class DivisionByZeroException extends Exception {}
