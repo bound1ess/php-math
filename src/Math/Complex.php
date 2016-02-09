@@ -49,4 +49,14 @@ final class Complex extends Number implements ComplexContract {
         $newImag = $this->imag->add($value->getImagPart());
         return new static($newReal, $newImag);
     }
+
+    /**
+     * @param Complex $value
+     * @return Complex
+     */
+    public function subtract(Complex $value): Complex {
+        $newReal = $this->real->subtract($value->getRealPart());
+        $newImag = $this->imag->subtract($value->getImagPart());
+        return new static($newReal, $newImag);
+    }
 }

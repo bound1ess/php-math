@@ -12,5 +12,5 @@ interface ComplexContract {
     public function getImagPart(): Integer;
 
     public function add(Complex $value): Complex;
-    //public function subtract(Complex $value): Complex;
+    public function subtract(Complex $value): Complex;
 }

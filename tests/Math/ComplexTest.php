@@ -26,6 +26,7 @@ class ComplexTest extends Dev\TestCase {
 
     public function testAddMethod() {
         $this->assertComplex($this->make(3, 4)->add($this->make(1, 2)));
+
         $complex = $this->make(3, 4)->add($this->make(1, 2));
         $this->assertEquals($complex->getRealPart()->getValue(), 4);
         $this->assertEquals($complex->getImagPart()->getValue(), 6);
@@ -33,6 +34,18 @@ class ComplexTest extends Dev\TestCase {
         $complex = $this->make(-7, 4)->add($this->make(3, -20));
         $this->assertEquals($complex->getRealPart()->getValue(), -4);
         $this->assertEquals($complex->getImagPart()->getValue(), -16);
+    }
+
+    public function testSubtractMethod() {
+        $this->assertComplex($this->make(-1, 1)->subtract($this->make(5, -5)));
+
+        $complex = $this->make(-1, 1)->subtract($this->make(5, -5));
+        $this->assertEquals($complex->getRealPart()->getValue(), -6);
+        $this->assertEquals($complex->getImagPart()->getValue(), 6);
+
+        $complex = $this->make(10, 0)->subtract($this->make(0, -30));
+        $this->assertEquals($complex->getRealPart()->getValue(), 10);
+        $this->assertEquals($complex->getImagPart()->getValue(), 30);
     }
 
     private function assertComplex($value) {
