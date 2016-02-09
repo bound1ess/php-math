@@ -8,16 +8,6 @@ use Math\Contracts\RationalContract;
 final class Rational extends Real implements RationalContract {
 
     /**
-     * @var int
-     */
-    private static $ZERO = 0;
-
-    /**
-     * @var int
-     */
-    private static $ONE = 1;
-
-    /**
      * @var Integer
      */
     private $num;
@@ -56,7 +46,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public static function makeInteger(Integer $num): Rational {
-        return new static($num, integer(static::$ONE));
+        return new static($num, integer(1));
     }
 
     /**
@@ -65,9 +55,9 @@ final class Rational extends Real implements RationalContract {
      */
     public static function makeZero(Integer $denom = null): Rational {
         if (null == $denom) {
-            $denom = integer(static::$ONE);
+            $denom = integer(1);
         }
-        return new static(integer(static::$ZERO), $denom);
+        return new static(integer(0), $denom);
     }
 
     /**
@@ -89,7 +79,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public function getInverse(): Rational {
-        if ($this->num->getValue() == static::$ZERO) {
+        if ($this->num->getValue() == 0) {
             throw new NoInverseException();
         }
         $newNum = integer($this->denom->getValue());
@@ -131,7 +121,7 @@ final class Rational extends Real implements RationalContract {
      * @return Rational
      */
     public function subtract(Rational $value): Rational {
-        $coef = new static(integer(-static::$ONE), integer(static::$ONE));
+        $coef = new static(integer(-1), integer(1));
         return $this->add($value->multiply($coef));
     }
 

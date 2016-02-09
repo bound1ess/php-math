@@ -17,11 +17,6 @@ final class Integer extends Real implements IntegerContract {
     /**
      * @var int
      */
-    private static $ZERO = 0;
-
-    /**
-     * @var int
-     */
     private $value;
 
     /**
@@ -136,7 +131,7 @@ final class Integer extends Real implements IntegerContract {
         $second = $value->getAbsoluteValue()->getValue();
 
         if (0 == $first && 0 == $second) {
-            return new static(static::$ZERO);
+            return new static(0);
         } else if (0 == $first) {
             return new static($second);
         } else if (0 == $second) {
@@ -217,8 +212,8 @@ final class Integer extends Real implements IntegerContract {
      * @return Integer
      */
     public function flipSign(): Integer {
-        if (static::$ZERO == $this->value) {
-            return new static(static::$ZERO);
+        if (0 == $this->value) {
+            return new static(0);
         }
         return new static($this->value * -1);
     }
@@ -321,20 +316,20 @@ final class Integer extends Real implements IntegerContract {
      * @return bool
      */
     public function isPositive(): bool {
-        return static::$ZERO < $this->value;
+        return 0 < $this->value;
     }
 
     /**
      * @return bool
      */
     public function isNegative(): bool {
-        return static::$ZERO > $this->value;
+        return 0 > $this->value;
     }
 
     /**
      * @return bool
      */
     public function isZero(): bool {
-        return static::$ZERO == $this->value;
+        return 0 == $this->value;
     }
 }
