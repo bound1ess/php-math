@@ -39,4 +39,14 @@ final class Complex extends Number implements ComplexContract {
     public function getImagPart(): Integer {
         return $this->imag;
     }
+
+    /**
+     * @param Complex $value
+     * @return Complex
+     */
+    public function add(Complex $value): Complex {
+        $newReal = $this->real->add($value->getRealPart());
+        $newImag = $this->imag->add($value->getImagPart());
+        return new static($newReal, $newImag);
+    }
 }

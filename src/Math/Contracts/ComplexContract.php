@@ -2,7 +2,7 @@
 
 namespace Math\Contracts;
 
-use Math\Integer;
+use Math\{Integer, Complex};
 
 interface ComplexContract {
 
@@ -10,4 +10,7 @@ interface ComplexContract {
 
     public function getRealPart(): Integer;
     public function getImagPart(): Integer;
+
+    public function add(Complex $value): Complex;
+    //public function subtract(Complex $value): Complex;
 }

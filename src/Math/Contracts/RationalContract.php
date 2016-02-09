@@ -6,6 +6,8 @@ use Math\{Integer, Rational};
 
 interface RationalContract {
 
+    public function __construct(Integer $num, Integer $denom);
+
     public function getNumerator(): Integer;
     public function getDenominator(): Integer;
 

@@ -6,6 +6,8 @@ use Math\Integer;
 
 interface IntegerContract {
 
+    public function __construct(int $value);
+
     public function getValue(): int;
     public function getAbsoluteValue(): Integer;
 
