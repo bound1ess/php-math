@@ -14,7 +14,8 @@
         },
         "files": [
             "src/helpers/rational.php",
-            "src/helpers/integer.php"
+            "src/helpers/integer.php",
+            "src/helpers/complex.php"
         ]
     }
 }
