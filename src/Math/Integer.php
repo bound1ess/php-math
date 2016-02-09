@@ -3,10 +3,13 @@
 namespace Math;
 
 use Math\Contracts\IntegerContract;
+
 use Math\Exceptions\{
     LcmNotDefinedException,
     DivisionByZeroException,
-    FactorialNotDefinedException
+    FactorialNotDefinedException,
+    NegativeExponentException,
+    BaseIsZeroException
 };
 
 final class Integer extends Real implements IntegerContract {
@@ -248,6 +251,32 @@ final class Integer extends Real implements IntegerContract {
             $factorial *= $i;
         }
         return new static($factorial);
+    }
+
+    /**
+     * @throws NegativeExponentException
+     * @throws BaseIsZeroException
+     * @param Integer $exp
+     * @return Integer
+     */
+    public function power(Integer $exp): Integer {
+        if ($exp->isNegative()) {
+            throw new NegativeExponentException();
+        }
+        if (0 == $this->value) {
+            throw new BaseIsZeroException();
+        }
+        $value = 1;
+        $expValue = $exp->getValue();
+        $base = $this->value;
+        while (0 < $expValue) {
+            if ($expValue % 2 == 1) {
+                $value *= $base;
+            }
+            $expValue = intdiv($expValue, 2);
+            $base *= $base; // potential overflow
+        }
+        return new static($value);
     }
 
     /**

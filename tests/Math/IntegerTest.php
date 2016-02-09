@@ -151,6 +151,25 @@ class IntegerTest extends Dev\TestCase {
         $this->make(-1)->factorial();
     }
 
+    public function testPowerMethod() {
+        $this->assertInteger($this->make(2)->power($this->make(4)));
+        $this->assertEquals($this->make(2)->power($this->make(4))->getValue(), 16);
+        $this->assertEquals($this->make(17)->power($this->make(0))->getValue(), 1);
+        $this->assertEquals($this->make(-5)->power($this->make(2))->getValue(), 25);
+        $this->assertEquals($this->make(-3)->power($this->make(3))->getValue(), -27);
+        $this->assertEquals($this->make(-4)->power($this->make(5))->getValue(), -1024);
+    }
+
+    public function testPowerMethodException() {
+        $this->setExpectedException('Math\\Exceptions\\NegativeExponentException');
+        $this->make(15)->power($this->make(-1));
+    }
+
+    public function testPowerMethodAnotherException() {
+        $this->setExpectedException('Math\\Exceptions\\BaseIsZeroException');
+        $this->make(0)->power($this->make(0));
+    }
+
     public function testIsLessThanMethod() {
         $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
         $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));

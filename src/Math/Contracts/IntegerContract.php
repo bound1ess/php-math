@@ -32,4 +32,9 @@ interface IntegerContract {
     public function getDigits(): array;
 
     public function factorial(): Integer;
+
+    public function power(Integer $exp): Integer;
+
+    //public function isEven(): bool;
+    //public function isOdd(): bool;
 }
