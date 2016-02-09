@@ -2,7 +2,9 @@
 
 namespace Math;
 
-final class Complex extends Number {
+use Math\Contracts\ComplexContract;
+
+final class Complex extends Number implements ComplexContract {
 
     /**
      * @var Integer
@@ -22,5 +24,19 @@ final class Complex extends Number {
     public function __construct(Integer $real, Integer $imag) {
         $this->real = $real;
         $this->imag = $imag;
+    }
+
+    /**
+     * @return Integer
+     */
+    public function getRealPart(): Integer {
+        return $this->real;
+    }
+
+    /**
+     * @return Integer
+     */
+    public function getImagPart(): Integer {
+        return $this->imag;
     }
 }
