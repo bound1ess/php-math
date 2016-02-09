@@ -35,6 +35,6 @@ interface IntegerContract {
 
     public function power(Integer $exp): Integer;
 
-    //public function isEven(): bool;
-    //public function isOdd(): bool;
+    public function isEven(): bool;
+    public function isOdd(): bool;
 }

@@ -170,6 +170,24 @@ class IntegerTest extends Dev\TestCase {
         $this->make(0)->power($this->make(0));
     }
 
+    public function testIsEvenMethod() {
+        $this->assertInternalType('bool', $this->make(1)->isEven());
+        $this->assertTrue($this->make(0)->isEven());
+        $this->assertTrue($this->make(2)->isEven());
+        $this->assertTrue($this->make(-2)->isEven());
+        $this->assertFalse($this->make(-15)->isEven());
+        $this->assertFalse($this->make(35)->isEven());
+    }
+
+    public function testIsOddMethod() {
+        $this->assertInternalType('bool', $this->make(1)->isOdd());
+        $this->assertTrue($this->make(27)->isOdd());
+        $this->assertTrue($this->make(-123)->isOdd());
+        $this->assertFalse($this->make(8)->isOdd());
+        $this->assertFalse($this->make(-20)->isOdd());
+        $this->assertFalse($this->make(0)->isOdd());
+    }
+
     public function testIsLessThanMethod() {
         $this->assertTrue($this->make(1)->isLessThan($this->make(2)));
         $this->assertTrue($this->make(-5)->isLessThan($this->make(1)));

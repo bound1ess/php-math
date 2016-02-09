@@ -280,6 +280,20 @@ final class Integer extends Real implements IntegerContract {
     }
 
     /**
+     * @return bool
+     */
+    public function isEven(): bool {
+        return $this->value % 2 == 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOdd(): bool {
+        return abs($this->value % 2) == 1;
+    }
+
+    /**
      * @param Integer $value
      * @return bool
      */
