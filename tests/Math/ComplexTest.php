@@ -24,6 +24,18 @@ class ComplexTest extends Dev\TestCase {
         $this->assertEquals($this->make(3, 5)->getImagPart()->getValue(), 5);
     }
 
+    public function testGetConjugateMethod() {
+        $this->assertComplex($this->make(2, 3)->getConjugate());
+
+        $complex = $this->make(2, 3)->getConjugate();
+        $this->assertEquals($complex->getRealPart()->getValue(), 2);
+        $this->assertEquals($complex->getImagPart()->getValue(), -3);
+
+        $complex = $this->make(-5, -7)->getConjugate();
+        $this->assertEquals($complex->getRealPart()->getValue(), -5);
+        $this->assertEquals($complex->getImagPart()->getValue(), 7);
+    }
+
     public function testAddMethod() {
         $this->assertComplex($this->make(3, 4)->add($this->make(1, 2)));
 
@@ -58,6 +70,18 @@ class ComplexTest extends Dev\TestCase {
         $complex = $this->make(-5, -8)->multiply($this->make(4, 7));
         $this->assertEquals($complex->getRealPart()->getValue(), 36);
         $this->assertEquals($complex->getImagPart()->getValue(), -67);
+    }
+
+    public function testDivideMethod() {
+        $answer = $this->make(4, 5)->divide($this->make(3, 6));
+        $this->assertInternalType('array', $answer);
+        $this->assertCount(2, $answer);
+        $this->assertComplex($answer[0]);
+        $this->assertComplex($answer[1]);
+        $this->assertEquals($answer[0]->getRealPart()->getValue(), 42);
+        $this->assertEquals($answer[0]->getImagPart()->getValue(), -9);
+        $this->assertEquals($answer[1]->getRealPart()->getValue(), 45);
+        $this->assertEquals($answer[1]->getImagPart()->getValue(), 0);
     }
 
     private function assertComplex($value) {

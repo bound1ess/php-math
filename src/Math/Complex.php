@@ -41,6 +41,13 @@ final class Complex extends Number implements ComplexContract {
     }
 
     /**
+     * @return Complex
+     */
+    public function getConjugate(): Complex {
+        return new static($this->real, $this->imag->flipSign());
+    }
+
+    /**
      * @param Complex $value
      * @return Complex
      */
@@ -72,5 +79,15 @@ final class Complex extends Number implements ComplexContract {
         $newImag = $this->real->multiply($value->getImagPart());
         $newImag = $newImag->add($this->imag->multiply($value->getRealPart()));
         return new static($newReal, $newImag);
+    }
+
+    /**
+     * @param Complex $value
+     * @return array
+     */
+    public function divide(Complex $value): array {
+        $newReal = $this->multiply($value->getConjugate());
+        $newImag = $value->multiply($value->getConjugate());
+        return [$newReal, $newImag];
     }
 }
