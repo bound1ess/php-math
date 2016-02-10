@@ -59,4 +59,18 @@ final class Complex extends Number implements ComplexContract {
         $newImag = $this->imag->subtract($value->getImagPart());
         return new static($newReal, $newImag);
     }
+
+    /**
+     * @param Complex $value
+     * @return Complex
+     */
+    public function multiply(Complex $value): Complex {
+        // (a + bi)(c + di) = ac + adi + bci + bdi^2
+        // = ac + (ad + bc)i - bd = (ac - bd) + (ad + bc)i
+        $newReal = $this->real->multiply($value->getRealPart());
+        $newReal = $newReal->subtract($this->imag->multiply($value->getImagPart()));
+        $newImag = $this->real->multiply($value->getImagPart());
+        $newImag = $newImag->add($this->imag->multiply($value->getRealPart()));
+        return new static($newReal, $newImag);
+    }
 }

@@ -13,4 +13,5 @@ interface ComplexContract {
 
     public function add(Complex $value): Complex;
     public function subtract(Complex $value): Complex;
+    public function multiply(Complex $value): Complex;
 }

@@ -48,6 +48,18 @@ class ComplexTest extends Dev\TestCase {
         $this->assertEquals($complex->getImagPart()->getValue(), 30);
     }
 
+    public function testMultiplyMethod() {
+        $this->assertComplex($this->make(1, 1)->multiply($this->make(1, 1)));
+
+        $complex = $this->make(3, 7)->multiply($this->make(4, 2));
+        $this->assertEquals($complex->getRealPart()->getValue(), -2);
+        $this->assertEquals($complex->getImagPart()->getValue(), 34);
+
+        $complex = $this->make(-5, -8)->multiply($this->make(4, 7));
+        $this->assertEquals($complex->getRealPart()->getValue(), 36);
+        $this->assertEquals($complex->getImagPart()->getValue(), -67);
+    }
+
     private function assertComplex($value) {
         $this->assertInstanceOf('Math\\Complex', $value);
     }
