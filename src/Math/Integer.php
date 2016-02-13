@@ -313,6 +313,14 @@ final class Integer extends Real implements IntegerContract {
     }
 
     /**
+     * @param Integer $value
+     * @return Integer
+     */
+    public function getRelativePosition(Integer $value): Integer {
+        return new static($this->value <=> $value->getValue());
+    }
+
+    /**
      * @return bool
      */
     public function isPositive(): bool {

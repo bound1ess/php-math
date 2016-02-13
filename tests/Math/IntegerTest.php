@@ -212,6 +212,22 @@ class IntegerTest extends Dev\TestCase {
         $this->assertFalse($this->make(-1)->isGreaterThan($this->make(3)));
     }
 
+    public function testGetRelativePositionMethod() {
+        $this->assertInteger($this->make(0)->getRelativePosition($this->make(0)));
+        $this->assertEquals(
+            $this->make(0)->getRelativePosition($this->make(0))->getValue(),
+            0 // 0 == 0, thus 0
+        );
+        $this->assertEquals(
+            $this->make(1)->getRelativePosition($this->make(0))->getValue(),
+            1 // 1 is greater 0, thus 1
+        );
+        $this->assertEquals(
+            $this->make(0)->getRelativePosition($this->make(1))->getValue(),
+            -1 // 0 is less than 1, thus -1
+        );
+    }
+
     private function make(int $value): Integer {
         return new Integer($value);
     }

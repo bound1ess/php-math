@@ -28,6 +28,7 @@ interface IntegerContract {
     public function isLessThan(Integer $value): bool;
     public function isEqualTo(Integer $value): bool;
     public function isGreaterThan(Integer $value): bool;
+    public function getRelativePosition(Integer $value): Integer;
 
     public function flipSign(): Integer;
 
